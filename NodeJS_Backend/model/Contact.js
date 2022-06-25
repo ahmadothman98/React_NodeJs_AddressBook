@@ -8,9 +8,9 @@ const contactSchema = new mongoose.Schema({
         max: 255.
     },
     number: {
-        type: Number,
+        type: String,
         required: true,
-        min: 8,
+        min: 3, 
         max:13,
     },
     relation: {
