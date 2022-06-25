@@ -26,8 +26,8 @@ async function add(req, res) {
 
 async function get(req, res){
     try{
-        console.log(req.body);
-        const contactsResult = await getContacts();
+        console.log(req.query.id);
+        const contactsResult = await getContacts(req.query.id);
         console.log('contacts:', contactsResult);
         return res.send(contactsResult);
     } catch(err){

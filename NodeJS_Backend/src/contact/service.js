@@ -1,4 +1,5 @@
 const Contact = require('../../model/Contact');
+const User = require('../../model/User');
 
 async function addContact(body){
     const {
@@ -21,4 +22,12 @@ async function addContact(body){
     return await contact.save();
 }
 
-async function 
+async function getContacts(id){
+    return await User.findById(id).populate('contacts');
+
+}
+
+module.exports = {
+    addContact,
+    getContacts,
+}
