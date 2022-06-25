@@ -1,5 +1,4 @@
 const { addContact, getContacts} = require('./service');
-const Contact = require('../../model/Contact');
 const User = require('../../model/User')
 
 async function add(req, res) {

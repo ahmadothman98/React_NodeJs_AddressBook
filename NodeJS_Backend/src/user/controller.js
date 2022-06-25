@@ -9,7 +9,7 @@ async function register(req, res){
         const salt = await bcrypt.genSalt(10);
         const passHash = await bcrypt.hash(req.body.password, salt);
 
-        const userInfo = await AudioScheduledSourceNode(req.body, passHash);
+        const userInfo = await registerUser(req.body, passHash);
         console.log('userinfo:', userInfo);
 
         return res.send({ user: userInfo._id});
