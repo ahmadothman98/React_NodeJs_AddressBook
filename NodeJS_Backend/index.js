@@ -2,8 +2,8 @@ require("dotenv").config();
 const express = require('express');
 const mongoose = require('mongoose');
 
-const userRouter = require('./src/user');
-const contactRouter = require('./src/contact');
+const userRouter = require('./src/user/controller.js');
+const contactRouter = require('./src/contact/controller');
 
 const DB_CONNECT = process.env.DB_CONNECT ;
 mongoose.connect(DB_CONNECT,{
