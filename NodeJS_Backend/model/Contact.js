@@ -13,18 +13,22 @@ const contactSchema = new mongoose.Schema({
         min: 3, 
         max:13,
     },
-    relation: {
-        type: String,
-    },
     email: {
         type: String,
         lowercase: true,
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
     },
+    relation: {
+        type: String,
+    },
     location:{
         coordinates: [Number],
+    },
+    user:{
+        type:mongoose.Types.ObjectId,
+        ref: 'User'
     }
-        
+    
 
 
 });
