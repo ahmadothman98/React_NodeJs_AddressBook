@@ -1,3 +1,9 @@
+h2{
+    margin-top:0;
+    margin-left: auto;
+    margin-right: auto;
+    color: #3Ca2F0;
+}
 .login-page,.signup-page {
     display: flex;
     flex-direction: column;

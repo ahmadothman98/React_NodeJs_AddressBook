@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import Login_form from "./pages/login";
-import Signup_form from "./pages/register";
+import LOGIN_FORM from "./pages/login";
+import SIGNUP_FORM from "./pages/register";
+import MAIN_PAGE from "./pages/main"
 import './style.css';
 
 function App() {
@@ -8,8 +9,9 @@ function App() {
     <div className='app'>
       <Router>
         <Routes>
-            <Route  exact path = "/" element={<Signup_form />} />
-            <Route  exact path = "/login" element={<Login_form />} />
+          <Route  exact path = "/" element={<LOGIN_FORM/>} />
+          <Route  exact path = "/signup" element={<SIGNUP_FORM />} />
+          <Route  exact path = "/main" element={<MAIN_PAGE />} />
         </Routes>
     </Router>
     </div>

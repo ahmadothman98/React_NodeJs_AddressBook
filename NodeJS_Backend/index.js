@@ -6,7 +6,6 @@ const userRouter = require('./src/user/routes');
 const contactRouter = require('./src/contact/routes');
 
 const cors = require('cors');
-app.use(cors());
 
 const DB_CONNECT = process.env.DB_CONNECT ;
 mongoose.connect(DB_CONNECT,{
@@ -21,12 +20,13 @@ mongoose.connect(DB_CONNECT,{
 })
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 
 app.use('/api/contact', contactRouter);
 app.use('/api/user', userRouter);
 
-app.listen(3000, () => {
-    console.log('server running on port 3000')
+app.listen(3003, () => {
+    console.log('server running on port 3003')
 })
