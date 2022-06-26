@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const userRouter = require('./src/user/routes');
 const contactRouter = require('./src/contact/routes');
 
+const cors = require('cors');
+app.use(cors());
+
 const DB_CONNECT = process.env.DB_CONNECT ;
 mongoose.connect(DB_CONNECT,{
     useNewUrlParser:true,useUnifiedTopology:true
