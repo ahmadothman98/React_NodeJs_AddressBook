@@ -5,6 +5,6 @@ const { add, get} = require('./controller');
 
 
 router.post('/add_contact', add);
-router.get('/get_contacts:id', get);
+router.get('/get_contacts?:id', get);
 
 module.exports = router;

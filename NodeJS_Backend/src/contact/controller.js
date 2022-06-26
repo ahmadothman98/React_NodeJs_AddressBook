@@ -5,6 +5,7 @@ async function add(req, res) {
     try {
         console.log(req.body);
         const newContact = await addContact(req.body);
+        
         const updateUser = await User.updateMany(
             {
                 _id: newContact.user
@@ -25,7 +26,7 @@ async function add(req, res) {
 
 async function get(req, res){
     try{
-        console.log(req.query.id);
+        console.log(req.params);
         const contactsResult = await getContacts(req.query.id);
         console.log('contacts:', contactsResult);
         return res.send(contactsResult);
