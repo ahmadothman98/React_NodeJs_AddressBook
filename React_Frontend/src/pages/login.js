@@ -36,7 +36,7 @@ const Login_form = ()=>{
         <div className='login-page'>
         <h1>Welcome to SurveyMaker</h1>
         <form className='login-form' onSubmit={login}>
-                <h2>Login</h2>
+                <h2 className='title'>Login</h2>
                 <div className="input-div">
                 <label>Email </label>
                 <input type="email" id="email" className='email' 
