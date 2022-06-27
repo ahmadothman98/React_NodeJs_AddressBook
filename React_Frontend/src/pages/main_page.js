@@ -58,11 +58,10 @@ const MAIN_PAGE = () =>{
 
     return(
         <div>
-            <h3>Add Contact</h3>
             <div>
-
-                <button onClick={showAddForm}>Add</button>
-                <form onSubmit={saveContact}  className={showAdd&&"hidden"} >
+                <button onClick={showAddForm}>Add Contact</button>
+                <form onSubmit={saveContact}   className={showAdd?"hidden":"add-form"} >
+                    <h3>Add Contact</h3>
 
                     <label>Name:</label>
                     <input type="text" name = "name" />
