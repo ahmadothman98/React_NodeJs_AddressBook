@@ -8,7 +8,8 @@ const MAIN_PAGE = () =>{
     
     const [location,setLocation] = useState([33.8962, 35.4818])
     const [contacts,setContacts] = useState([]);
-    
+    const [showAdd,setShowAdd] = useState(false);
+
     const  handleMapClick = ({event,latLng}) => {
         console.log(event.target);
         setLocation(latLng);
@@ -51,16 +52,17 @@ const MAIN_PAGE = () =>{
         getContacts();
     },[])
 
-    const showAddForm=() => {}
+    const showAddForm=() => {
+        showAdd?setShowAdd(false):setShowAdd(true);
+    }
 
     return(
         <div>
-            <p>This is main page</p>
             <h3>Add Contact</h3>
             <div>
-    
+
                 <button onClick={showAddForm}>Add</button>
-                <form onSubmit={saveContact}  >
+                <form onSubmit={saveContact}  className={showAdd&&"hidden"} >
 
                     <label>Name:</label>
                     <input type="text" name = "name" />
