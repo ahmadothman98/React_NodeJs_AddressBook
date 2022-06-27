@@ -60,7 +60,7 @@ const MAIN_PAGE = () =>{
         <div>
             <div>
                 <button onClick={showAddForm}>Add Contact</button>
-                <form onSubmit={saveContact}   className={showAdd?"hidden":"add-form"} >
+                <form onSubmit={saveContact}   className={!showAdd?"hidden":"add-form"} >
                     <h3>Add Contact</h3>
 
                     <label>Name:</label>
@@ -82,16 +82,18 @@ const MAIN_PAGE = () =>{
                         <option>Other</option>
                     </select>
                     <label>Location:</label>
-                    
-                    <Map
-                        height={300}
-                        width={1000}
-                        defaultCenter={[33.8938, 35.5018]} 
-                        defaultZoom={12}
-                        onClick={handleMapClick}
-                        >
-                        <Marker width={50}  anchor={location} />
-                    </Map>
+                    <div className="map">
+                        <Map
+                            height={300}
+                            width={1000}
+                            defaultCenter={[33.8938, 35.5018]} 
+                            defaultZoom={12}
+                            onClick={handleMapClick}
+                            
+                            >
+                            <Marker width={50}  anchor={location} />
+                        </Map>
+                    </div>
                     <input name="location" value={location} hidden/>
 
                     <input type="submit" value="Save Contact" />
