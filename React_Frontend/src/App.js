@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import LOGIN_FORM from "./pages/login";
 import SIGNUP_FORM from "./pages/register";
-import MAIN_PAGE from "./pages/main"
+import MAIN_PAGE from "./pages/main_page"
 import './style.css';
 
 function App() {
