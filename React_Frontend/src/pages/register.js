@@ -28,7 +28,6 @@ const Signup_form = ()=>{
       }).then(function (response){
 
         setSubmitted(true);
-        // localStorage.setItem('token',response.data['access_token'])
         setEmail("");
         setPassword("");
         

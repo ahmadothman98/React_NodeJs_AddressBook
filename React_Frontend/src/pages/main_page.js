@@ -1,8 +1,8 @@
-import {Map, Marker} from "pigeon-maps"
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-
+import jwt from "jwt-decode";
+import {Map, Marker} from "pigeon-maps"
+import CONTACT from "../components/contact"
 
 const MAIN_PAGE = () =>{
     
@@ -21,8 +21,9 @@ const MAIN_PAGE = () =>{
             'name' : event.target.name.value,
             'number' : event.target.number.value,
             'email' : event.target.email.value,
-            'relation' : event.target.realtion.value,
-            'location' : event.target.location.value,
+            'relation' : event.target.relation.value,
+            'location' : {coordinates:event.target.location.value.split(',')},
+            'user' : jwt(localStorage.getItem('token'))._id,
 
         }
         axios({
@@ -31,7 +32,7 @@ const MAIN_PAGE = () =>{
             data: data
           }).then(function (response){
     
-
+            console.log(response.data);
             
           })
         console.log(event.target.location.value)
@@ -42,7 +43,7 @@ const MAIN_PAGE = () =>{
     useEffect(()=>{
         const getContacts = async () => {
             const response = await fetch("http://localhost:3003/api/contact/get_contacts?" + new URLSearchParams({
-                id: '62b79a171ce247ac21d96169',
+                id: jwt(localStorage.getItem('token'))._id,
             }));
             const contactsFromDB = await response.json();
             setContacts(contactsFromDB);
@@ -95,27 +96,11 @@ const MAIN_PAGE = () =>{
                     <input type="submit" value="Save Contact" />
                 </form>
             </div>    
-            <div hidden>
+            <div >
                 <h2>My Contacts</h2>
                 {contacts.map((contact,index)=>{
                     return (
-                        <div key={index}>
-                            <p className="contact-name">{contact.name}</p>
-                            <p className="contact-number">{contact.number}</p>
-                            <p className="contact-email">{contact.email}</p>
-                            <p className="contact-relation">{contact.relation}</p>
-                            <Map
-                                height={300}
-                                width={1000}
-                                defaultCenter={contact.location['coordinates']} 
-                                defaultZoom={12}
-                                onClick={handleMapClick}
-                                id={index}
-                                >
-                                <Marker width={50}  anchor={contact.location['coordinates']} />
-
-                            </Map>
-                        </div> 
+                        <CONTACT contact={contact} index={index} handleMapClick={handleMapClick} />
                     )
                 })}
                 {console.log(contacts)}

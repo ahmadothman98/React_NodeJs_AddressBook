@@ -23,7 +23,7 @@ const Login_form = ()=>{
         data: data
         }).then(function (response){
 
-        //  localStorage.setItem('token',response.data)
+        localStorage.setItem('token',response.data)
         setSubmitted(true);
 
         setEmail("");
