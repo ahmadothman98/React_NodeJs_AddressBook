@@ -3,7 +3,7 @@ import {Map, Marker} from "pigeon-maps"
 const CONTACT = ({contact,index,handleMapClick,showData}) => {
     return(
         <div key={index}>
-            <div className={!showData[index]?"hidden1":""}>
+            <div >
                 <p className="contact-number">{contact.number}</p>
                 <p className="contact-email">{contact.email}</p>
                 <p className="contact-relation">{contact.relation}</p>

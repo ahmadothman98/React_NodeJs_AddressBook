@@ -115,10 +115,16 @@ const MAIN_PAGE = () =>{
                 <input className="search" placeholder="Search" 
                 onChange={e=>{setSearch(e.target.value)}}
                 
-                ></input>
+                />
+                {console.log("searchBy",searchBy)}
+                <select onChange={e=>{setSearchBy(e.target.value)}}>
+                    <option value='name'>By Name</option>
+                    <option value='number'>By Number</option>
+                    <option value='email'>By Email</option>
+                </select>
                 {contacts.map((contact,index)=>{
-                    
-                    if(contact.name.includes(search)){
+                    var value = contact[searchBy];
+                    if(value.includes(search)){
                         return (
                             <div>
                                 <p className="contact-name" onClick={ () => toggleData(index)}>{contact.name}</p>
