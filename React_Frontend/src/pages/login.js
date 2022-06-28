@@ -34,7 +34,7 @@ const Login_form = ()=>{
     return(  
         
         <div className='login-page'>
-        <h1>Welcome to SurveyMaker</h1>
+        <h1>Welcome to AddressBook</h1>
         <form className='login-form' onSubmit={login}>
                 <h2 className='title'>Login</h2>
                 <div className="input-div">

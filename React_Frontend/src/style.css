@@ -2,7 +2,7 @@
     margin-top:0;
     margin-left: auto;
     margin-right: auto;
-    color: #3Ca2F0;
+    color: #72344E;
 }
 .login-page,.signup-page {
     display: flex;
@@ -28,8 +28,8 @@
     margin-top: 5px;
 }
 .submit{
-    background-color: #018ed2;
-    border: 1px solid #018ed2;
+    background-color: #72344E;
+    border: 1px solid #72344E;
     color: white;
     margin-top: 10px;
     padding: 10px 20px;
@@ -99,7 +99,7 @@
     font-size: 12px;
 }
 
-.hidden{
+.hidden,.hidden1{
     display: none;
 }
 .add-form{

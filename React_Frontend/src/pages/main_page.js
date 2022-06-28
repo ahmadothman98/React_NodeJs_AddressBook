@@ -9,6 +9,9 @@ const MAIN_PAGE = () =>{
     const [location,setLocation] = useState([33.8962, 35.4818])
     const [contacts,setContacts] = useState([]);
     const [showAdd,setShowAdd] = useState(false);
+    const [showData,setShowData] = useState([]);
+    const [search,setSearch] = useState("");
+    const [searchBy,setSearchBy] = useState("name");
 
     const  handleMapClick = ({event,latLng}) => {
         console.log(event.target);
@@ -47,15 +50,23 @@ const MAIN_PAGE = () =>{
                 id: jwt(localStorage.getItem('token'))._id,
             }));
             const contactsFromDB = await response.json();
+
             setContacts(contactsFromDB);
         }
         getContacts();
+        setShowData(Array(contacts.length).fill(false))
+
     },[])
 
     const showAddForm=() => {
         showAdd?setShowAdd(false):setShowAdd(true);
     }
 
+    const toggleData =  (index) => {
+        let array = showData;
+        array[index] = array[index]? false:true
+        setShowAdd(array);
+    }
     return(
         <div>
             <div>
@@ -101,11 +112,22 @@ const MAIN_PAGE = () =>{
             </div>    
             <div >
                 <h2>My Contacts</h2>
+                <input className="search" placeholder="Search" 
+                onChange={e=>{setSearch(e.target.value)}}
+                
+                ></input>
                 {contacts.map((contact,index)=>{
-                    return (
-                        <CONTACT contact={contact} index={index} handleMapClick={handleMapClick} />
-                    )
+                    
+                    if(contact.name.includes(search)){
+                        return (
+                            <div>
+                                <p className="contact-name" onClick={ () => toggleData(index)}>{contact.name}</p>
+                                <CONTACT contact={contact} index={index} handleMapClick={handleMapClick} showData = {showData} />
+                            </div>
+                        )
+                    }
                 })}
+                
                 {console.log(contacts)}
  
             </div>        

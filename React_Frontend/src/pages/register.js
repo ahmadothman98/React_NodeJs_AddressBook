@@ -40,7 +40,7 @@ const Signup_form = ()=>{
   
   return(  
       <div className='signup-page'>
-      <h1>Welcome to SurveyMaker</h1>
+      <h1>Welcome to AddressBook</h1>
       <form className='signup-form' onSubmit={signup}>
         <h2 className='title'>Register</h2>
         <div className="input-div">
