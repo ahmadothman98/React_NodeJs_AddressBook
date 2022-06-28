@@ -117,11 +117,14 @@
     font-size: 14px;
 }
 
-.hidden{
-    display: none;
-}
+
 .add-form{
-    background-color: #92d3b2;
+    background-color: white;
+    padding: 2rem;
+    box-shadow: 0 3px 10px 0px grey;
+    display: flex;
+    flex-direction: column;
+    width: 15rem;
 }
 .map {
     margin: auto;

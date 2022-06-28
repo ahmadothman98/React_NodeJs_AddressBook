@@ -7,7 +7,6 @@ import CONTACT from "../components/contact"
 
 const MAIN_PAGE = () =>{
     
-    const [loggedIn,setLoggedIn] = useState(true);
     const [name,setName]  = useState("");
     const [email,setEmail] = useState("");
     const [number,setNumber]  = useState("");
@@ -20,14 +19,19 @@ const MAIN_PAGE = () =>{
     const [searchBy,setSearchBy] = useState("name");
     const navigate = useNavigate();
 
-    useEffect(()=>{
-        if(!loggedIn){
-            navigate("/");
+
+    
+    useEffect (()=>{
+
+        const checkIfUser = () =>{
+            try{jwt(localStorage.getItem('token'))}
+            catch{navigate("/");}
         }
-    },[loggedIn])
+        checkIfUser();
+    },[])
+    
 
     //
-    
     const  handleMapClick = ({event,latLng}) => {
         console.log(event.target);
         setLocation(latLng);
@@ -87,54 +91,54 @@ const MAIN_PAGE = () =>{
     return(
         <div>
             <div>
-                <button className="logout" onClick={ () => {localStorage.removeItem('token'); setLoggedIn(false)}}>Logout</button>
+                <button className="logout" onClick={ () => {localStorage.removeItem('token'); navigate("/")}}>Logout</button>
                 <button className="add-contact" onClick={() => {setShowAdd(!showAdd)}}>Add Contact</button>
-                <form onSubmit={saveContact}   className={!showAdd?"hidden":"add-form"} >
-                    <h3>Add Contact</h3>
+                    { showAdd && <form onSubmit={saveContact} className="add-form" >
+                        <h3>Add Contact</h3>
 
-                    <label>Name:</label>
-                    <input type="text" name = "name" 
-                        onChange={e=>{setName(e.target.value)}}
-                    />
+                        <label>Name:</label>
+                        <input type="text" name = "name" 
+                            onChange={e=>{setName(e.target.value)}}
+                        />
 
-                    <label>Number:</label>
-                    <input type="number" name = "number" 
-                        onChange={e=>{setNumber(e.target.value)}}
-                    />
+                        <label>Number:</label>
+                        <input type="number" name = "number" 
+                            onChange={e=>{setNumber(e.target.value)}}
+                        />
 
-                    <label>Email:</label>
-                    <input type="text" name="email" 
-                        onChange={e=>{setEmail(e.target.value)}}
-                    />
+                        <label>Email:</label>
+                        <input type="text" name="email" 
+                            onChange={e=>{setEmail(e.target.value)}}
+                        />
 
-                    <label>Realtion:</label>
-                    <select name="relation"
-                    onChange={e=>{setRelation(e.target.value)}}
-                    >
-                        <option>Unknown</option>
-                        <option>Single</option>
-                        <option>In Relationship</option>
-                        <option>Engaged</option>
-                        <option>Married</option>
-                        <option>Other</option>
-                    </select>
-                    <label>Location:</label>
-                    <div className="map">
-                        <Map
-                            height={300}
-                            width={1000}
-                            defaultCenter={[33.8938, 35.5018]} 
-                            defaultZoom={12}
-                            onClick={handleMapClick}
-                            
-                            >
-                            <Marker width={50}  anchor={location} />
-                        </Map>
-                    </div>
+                        <label>Realtion:</label>
+                        <select name="relation"
+                        onChange={e=>{setRelation(e.target.value)}}
+                        >
+                            <option>Unknown</option>
+                            <option>Single</option>
+                            <option>In Relationship</option>
+                            <option>Engaged</option>
+                            <option>Married</option>
+                            <option>Other</option>
+                        </select>
+                        <label>Location:</label>
+                        <div className="map">
+                            <Map
+                                height={300}
+                                defaultCenter={[33.8938, 35.5018]} 
+                                defaultZoom={12}
+                                onClick={handleMapClick}
+                                
+                                >
+                                <Marker width={50}  anchor={location} />
+                            </Map>
+                        </div>
 
 
-                    <input type="submit" value="Save Contact" />
-                </form>
+                        <input type="submit" value="Save Contact" />
+                    </form>
+                }
             </div>    
             <div >
                 <h2>My Contacts</h2>
@@ -153,8 +157,8 @@ const MAIN_PAGE = () =>{
                     if(contact[searchBy].includes(search)){
                         return (
                             <div key={index}>
-                                <p className="contact-name" onClick={ () => toggleData(index)}>{contact.name}</p>
-                                { <div /*className={!showData[index]?"hidden":""}*/><CONTACT contact={contact} index={index} handleMapClick={handleMapClick} /></div> }
+                                <p className="contact-name" onClick={ () => {toggleData(index);navigate("/main")}}>{contact.name}</p>
+                                { showData[index] && <CONTACT contact={contact} index={index} handleMapClick={handleMapClick} /> }
                             </div>
                         )
                     }
