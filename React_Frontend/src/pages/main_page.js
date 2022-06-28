@@ -8,6 +8,10 @@ import CONTACT from "../components/contact"
 const MAIN_PAGE = () =>{
     
     const [loggedIn,setLoggedIn] = useState(true);
+    const [name,setName]  = useState("");
+    const [email,setEmail] = useState("");
+    const [number,setNumber]  = useState("");
+    const [relation,setRelation] = useState("");
     const [location,setLocation] = useState([33.8962, 35.4818])
     const [contacts,setContacts] = useState([]);
     const [showAdd,setShowAdd] = useState(false);
@@ -32,12 +36,13 @@ const MAIN_PAGE = () =>{
 
      const saveContact = async (event) => {
         event.preventDefault();
+        
         const data = {
-            'name' : event.target.name.value,
-            'number' : event.target.number.value,
-            'email' : event.target.email.value,
-            'relation' : event.target.relation.value,
-            'location' : {coordinates:event.target.location.value.split(',')},
+            'name' : name,
+            'number' : number,
+            'email' : email,
+            'relation' : relation,
+            'location' : {coordinates:location},
             'user' : jwt(localStorage.getItem('token'))._id,
 
         }
@@ -63,41 +68,49 @@ const MAIN_PAGE = () =>{
             const contactsFromDB = await response.json();
 
             setContacts(contactsFromDB);
+            setShowData(Array(contacts.length).fill(false));
         }
+   
+        console.log("initailize array", showData)
         getContacts();
-        setShowData(Array(contacts.length).fill(false))
 
     },[])
-
-    const showAddForm=() => {
-        showAdd?setShowAdd(false):setShowAdd(true);
-    }
 
     const toggleData =  (index) => {
         let array = showData;
         array[index] = array[index]? false:true
-        setShowAdd(array);
+        setShowData(array);
+        console.log("contactData",showData);
+
     }
 
     return(
         <div>
             <div>
                 <button onClick={ () => {localStorage.removeItem('token'); setLoggedIn(false)}}>Logout</button>
-                <button onClick={showAddForm}>Add Contact</button>
+                <button onClick={() => {setShowAdd(!showAdd)}}>Add Contact</button>
                 <form onSubmit={saveContact}   className={!showAdd?"hidden":"add-form"} >
                     <h3>Add Contact</h3>
 
                     <label>Name:</label>
-                    <input type="text" name = "name" />
+                    <input type="text" name = "name" 
+                        onChange={e=>{setName(e.target.value)}}
+                    />
 
                     <label>Number:</label>
-                    <input type="number" name = "number" />
+                    <input type="number" name = "number" 
+                        onChange={e=>{setNumber(e.target.value)}}
+                    />
 
                     <label>Email:</label>
-                    <input type="text" name="email" />
+                    <input type="text" name="email" 
+                        onChange={e=>{setEmail(e.target.value)}}
+                    />
 
                     <label>Realtion:</label>
-                    <select name="relation">
+                    <select name="relation"
+                    onChange={e=>{setRelation(e.target.value)}}
+                    >
                         <option>Unknown</option>
                         <option>Single</option>
                         <option>In Relationship</option>
@@ -118,7 +131,7 @@ const MAIN_PAGE = () =>{
                             <Marker width={50}  anchor={location} />
                         </Map>
                     </div>
-                    <input name="location" value={location} hidden/>
+
 
                     <input type="submit" value="Save Contact" />
                 </form>
@@ -139,9 +152,9 @@ const MAIN_PAGE = () =>{
                    
                     if(contact[searchBy].includes(search)){
                         return (
-                            <div>
+                            <div key={index}>
                                 <p className="contact-name" onClick={ () => toggleData(index)}>{contact.name}</p>
-                                <CONTACT contact={contact} index={index} handleMapClick={handleMapClick} showData = {showData} />
+                                <div className={!showData[index]?"hidden":""}><CONTACT contact={contact} index={index} handleMapClick={handleMapClick} /></div>
                             </div>
                         )
                     }

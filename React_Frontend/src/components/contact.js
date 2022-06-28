@@ -1,6 +1,6 @@
 import {Map, Marker} from "pigeon-maps"
 
-const CONTACT = ({contact,index,handleMapClick,showData}) => {
+const CONTACT = ({contact,index,handleMapClick}) => {
     return(
         <div key={index}>
             <div >
