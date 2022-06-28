@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import jwt from "jwt-decode";
 import {Map, Marker} from "pigeon-maps"
@@ -6,13 +7,23 @@ import CONTACT from "../components/contact"
 
 const MAIN_PAGE = () =>{
     
+    const [loggedIn,setLoggedIn] = useState(true);
     const [location,setLocation] = useState([33.8962, 35.4818])
     const [contacts,setContacts] = useState([]);
     const [showAdd,setShowAdd] = useState(false);
     const [showData,setShowData] = useState([]);
     const [search,setSearch] = useState("");
     const [searchBy,setSearchBy] = useState("name");
+    const navigate = useNavigate();
 
+    useEffect(()=>{
+        if(!loggedIn){
+            navigate("/");
+        }
+    },[loggedIn])
+
+    //
+    
     const  handleMapClick = ({event,latLng}) => {
         console.log(event.target);
         setLocation(latLng);
@@ -67,9 +78,11 @@ const MAIN_PAGE = () =>{
         array[index] = array[index]? false:true
         setShowAdd(array);
     }
+
     return(
         <div>
             <div>
+                <button onClick={ () => {localStorage.removeItem('token'); setLoggedIn(false)}}>Logout</button>
                 <button onClick={showAddForm}>Add Contact</button>
                 <form onSubmit={saveContact}   className={!showAdd?"hidden":"add-form"} >
                     <h3>Add Contact</h3>
