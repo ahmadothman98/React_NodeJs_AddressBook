@@ -123,8 +123,8 @@ const MAIN_PAGE = () =>{
                     <option value='email'>By Email</option>
                 </select>
                 {contacts.map((contact,index)=>{
-                    var value = contact[searchBy];
-                    if(value.includes(search)){
+                   
+                    if(contact[searchBy].includes(search)){
                         return (
                             <div>
                                 <p className="contact-name" onClick={ () => toggleData(index)}>{contact.name}</p>
