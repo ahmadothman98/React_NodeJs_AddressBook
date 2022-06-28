@@ -39,8 +39,8 @@ const MAIN_PAGE = () =>{
     }
 
      const saveContact = async (event) => {
-        event.preventDefault();
-        
+         event.preventDefault();
+         
         const data = {
             'name' : name,
             'number' : number,
@@ -55,11 +55,8 @@ const MAIN_PAGE = () =>{
             url: "http://localhost:3003/api/contact/add_contact",
             data: data
           }).then(function (response){
-    
-            console.log(response.data);
-            
+            console.log("response",response.data);
           })
-        console.log(event.target.location.value)
         //send contacts data to db
     }
     
@@ -92,37 +89,43 @@ const MAIN_PAGE = () =>{
         <div>
             <div>
                 <button className="logout" onClick={ () => {localStorage.removeItem('token'); navigate("/")}}>Logout</button>
-                <button className="add-contact" onClick={() => {setShowAdd(!showAdd)}}>Add Contact</button>
-                    { showAdd && <form onSubmit={saveContact} className="add-form" >
-                        <h3>Add Contact</h3>
+                <button className="add-contact" onClick={() => {setShowAdd(!showAdd);}}>Add Contact</button>
+                    { showAdd && <form  className="add-form" onSubmit={saveContact}  >
+                        <div className="fields" >
+                            <h3>Add Contact</h3>
 
-                        <label>Name:</label>
-                        <input type="text" name = "name" 
-                            onChange={e=>{setName(e.target.value)}}
-                        />
+                            <label>Name:</label>
+                            <input className= "form-input" type="text" name = "name" 
+                                onChange={e=>{setName(e.target.value)}}
+                            />
 
-                        <label>Number:</label>
-                        <input type="number" name = "number" 
-                            onChange={e=>{setNumber(e.target.value)}}
-                        />
+                            <label>Number:</label>
+                            <input className= "form-input" type="number" name = "number" 
+                                onChange={e=>{setNumber(e.target.value)}}
+                            />
 
-                        <label>Email:</label>
-                        <input type="text" name="email" 
-                            onChange={e=>{setEmail(e.target.value)}}
-                        />
+                            <label>Email:</label>
+                            <input className= "form-input" type="text" name="email" 
+                                onChange={e=>{setEmail(e.target.value)}}
+                            />
 
-                        <label>Realtion:</label>
-                        <select name="relation"
-                        onChange={e=>{setRelation(e.target.value)}}
-                        >
-                            <option>Unknown</option>
-                            <option>Single</option>
-                            <option>In Relationship</option>
-                            <option>Engaged</option>
-                            <option>Married</option>
-                            <option>Other</option>
-                        </select>
-                        <label>Location:</label>
+                            <label>Realtion:</label>
+                            <select name="relation"
+                            onChange={e=>{setRelation(e.target.value)}}
+                            >
+                                <option></option>
+                                <option>Unknown</option>
+                                <option>Single</option>
+                                <option>In Relationship</option>
+                                <option>Engaged</option>
+                                <option>Married</option>
+                                <option>Other</option>
+                            </select>
+                            
+                            <input type="submit" value="Save Contact" className="submit"/>
+
+                        </div>   
+                        
                         <div className="map">
                             <Map
                                 height={300}
@@ -136,12 +139,11 @@ const MAIN_PAGE = () =>{
                         </div>
 
 
-                        <input type="submit" value="Save Contact" />
                     </form>
                 }
             </div>    
             <div >
-                <h2>My Contacts</h2>
+                <h2 style={{textAlign:'center'}}>My Contacts</h2>
                 <input className="search" placeholder="Search" 
                 onChange={e=>{setSearch(e.target.value)}}
                 
