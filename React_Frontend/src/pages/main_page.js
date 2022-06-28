@@ -87,8 +87,8 @@ const MAIN_PAGE = () =>{
     return(
         <div>
             <div>
-                <button onClick={ () => {localStorage.removeItem('token'); setLoggedIn(false)}}>Logout</button>
-                <button onClick={() => {setShowAdd(!showAdd)}}>Add Contact</button>
+                <button className="logout" onClick={ () => {localStorage.removeItem('token'); setLoggedIn(false)}}>Logout</button>
+                <button className="add-contact" onClick={() => {setShowAdd(!showAdd)}}>Add Contact</button>
                 <form onSubmit={saveContact}   className={!showAdd?"hidden":"add-form"} >
                     <h3>Add Contact</h3>
 
@@ -154,7 +154,7 @@ const MAIN_PAGE = () =>{
                         return (
                             <div key={index}>
                                 <p className="contact-name" onClick={ () => toggleData(index)}>{contact.name}</p>
-                                <div className={!showData[index]?"hidden":""}><CONTACT contact={contact} index={index} handleMapClick={handleMapClick} /></div>
+                                { <div /*className={!showData[index]?"hidden":""}*/><CONTACT contact={contact} index={index} handleMapClick={handleMapClick} /></div> }
                             </div>
                         )
                     }
